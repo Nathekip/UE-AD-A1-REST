@@ -16,7 +16,7 @@ with open('{}/databases/movies.json'.format("."), 'r') as jsf:
 def home():
     return make_response("<h1 style='color:blue'>Welcome to the Movie service!</h1>", 200)
 
-@app.route("/help", methods=['GET'])
+@app.route("/movie/help", methods=['GET'])
 def help():
     endpoints = ["/json","/movies/{movieid}","/movies/{movieid}/{rate}","/addmovie/{movieid}","/movies/{movieid}","/moviesbytitle"]
     html = f"<h1>Endpoints : </h1><ul>{"".join([f"<li>{path}</li>" for path in endpoints])}</ul>"
