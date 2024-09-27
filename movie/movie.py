@@ -19,7 +19,7 @@ def home():
 @app.route("/movie/help", methods=['GET'])
 def help():
     endpoints = ["/json","/movies/{movieid}","/movies/{movieid}/{rate}","/addmovie/{movieid}","/movies/{movieid}","/moviesbytitle"]
-    html = f"<h1>Endpoints : </h1><ul>{"".join([f"<li>{path}</li>" for path in endpoints])}</ul>"
+    html = f"<h1>Endpoints : </h1><ul>{''.join([f"<li>{path}</li>" for path in endpoints])}</ul>"
     return make_response(html, 200)
 
 @app.route("/json",methods=['GET'])
