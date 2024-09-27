@@ -37,9 +37,9 @@ def get_movie_byid(movieid):
 
 @app.route("/moviesbytitle", methods=['GET'])
 def get_movie_bytitle():
-    req = request.get_json()
-    print(req)
-    title = ""
+    if request.args:
+        req = request.args
+        title = req["title"][1:-1]
     for movie in movies:
         if movie["title"] == title:
             res = make_response(jsonify(movie),200)
