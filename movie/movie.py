@@ -17,7 +17,7 @@ def home():
     return make_response("<h1 style='color:blue'>Welcome to the Movie service!</h1>", 200)
 
 @app.route("/help", methods=['GET'])
-def help():
+def get_help():
     endpoints = ["/json","/movies/{movieid}","/movies/{movieid}/{rate}","/addmovie/{movieid}","/movies/{movieid}","/moviesbytitle"]
     html = f"<h1>Endpoints : </h1><ul>{''.join([f"<li>{path}</li>" for path in endpoints])}</ul>"
     return make_response(html, 200)

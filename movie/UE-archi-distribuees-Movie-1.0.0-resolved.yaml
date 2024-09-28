@@ -34,6 +34,30 @@ paths:
               schema:
                 type: string
                 example: <h1 style='color:blue'>Welcome to the Movie service!</h1>
+  /help:
+    get:
+      tags:
+      - developers
+      summary: list of all the endpoints
+      description: |
+        Nothing to do
+      operationId: get_help
+      responses:
+        "200":
+          description: list of endpoints
+          content:
+            text/html:
+              schema:
+                type: string
+                example: "<h1>Endpoints :</h1>
+                          <ul>
+                            <li>/json</li>
+                            <li>/movies/{movieid}</li>
+                            <li>/movies/{movieid}/{rate}</li>
+                            <li>/addmovie/{movieid}</li>
+                            <li>/movies/{movieid}</li>
+                            <li>/moviesbytitle</li>
+                          </ul>"
   /json:
     get:
       tags:
