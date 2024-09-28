@@ -17,8 +17,16 @@ def home():
 
 @app.route("/bookings/<userid>", methods=["POST"])
 def add_booking(userid):
+   # récupérer date et film à partir du json
    req = request.get_json()
-   return
+   date = ""
+   film_id = ""
+   # récupérer liste des films programmés à X date en faisant appel à l'API Showtime et vérifier si le film correspond
+   schedule = requests.get(f"{HOST}:{PORT}/showmovies/{date}")
+   # récupérer réservations de l'user puis la modifier
+   reserv_user = {}
+   # envoyer json des réservations de l'user
+   return make_response(jsonify(reserv_user), 200)
 
 @app.route("/bookings", methods=["GET"])
 def get_bookings():
