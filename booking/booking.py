@@ -6,11 +6,16 @@ from werkzeug.exceptions import NotFound
 app = Flask(__name__)
 
 PORT = 3201
+PORT_SHOWTIME = 3202
 HOST = '0.0.0.0'
 IP = "127.0.0.1"
 
 with open('{}/databases/bookings.json'.format("."), "r") as jsf:
    bookings = json.load(jsf)["bookings"]
+
+def write_booking():
+   with open('{}/databases/bookings.json'.format("."), "w") as file:
+      json.dump(bookings, file)
 
 @app.route("/", methods=['GET'])
 def home():
@@ -20,14 +25,28 @@ def home():
 def add_booking(userid):
    # récupérer date et film à partir du json
    req = request.get_json()
-   date = req['date']
-   film_id = req["movieid"]
+   date_mv = req['date']
+   movieid = req["movieid"]
    # récupérer liste des films programmés à X date en faisant appel à l'API Showtime et vérifier si le film correspond
-   response = requests.get(f"http://{IP}:{PORT}/showmovies/{date}")
-   # envoyer json des réservations de l'user
-   if response.status_code == 200:
-      return make_response({"test":"test"}, 200)
-   return make_response({"error":"no movie at this date"}, 400)
+   response = requests.get(f"http://{IP}:{PORT_SHOWTIME}/showmovies/{date_mv}")
+   # date présente dans la programmation du Cinéma ?
+   if response.status_code != 200:
+      return make_response({"error":"no movie at this date"}, 400)
+   # film_id présent dans la liste de films ?
+   if movieid not in response.json()["movies"]:
+      return make_response({"error":"this movie is not programmed for this date"}, 400)
+   for booking in bookings:
+      if userid == booking["userid"]:
+         for date in booking["dates"]:
+            if str(date["date"]) == str(date_mv):
+               for movie in date["movies"]:
+                  if movie == movieid:
+                     return make_response({"error":"an existing item already exists"}, 409)
+                  date["movies"].append(movieid)
+                  write_booking()
+                  return make_response(jsonify(bookings),200)
+
+   return make_response({"test":"test"}, 200)
 
 @app.route("/bookings", methods=["GET"])
 def get_bookings():
