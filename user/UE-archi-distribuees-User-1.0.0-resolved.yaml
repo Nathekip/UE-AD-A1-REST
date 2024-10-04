@@ -71,7 +71,7 @@ paths:
       tags:
       - developers
       summary: get movies informations from user's bookings
-      operationId: get_movies_bydate
+      operationId: get_movies_byuser
       parameters:
       - name: user
         in: path
