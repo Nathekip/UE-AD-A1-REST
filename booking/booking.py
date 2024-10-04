@@ -15,7 +15,7 @@ with open('{}/databases/bookings.json'.format("."), "r") as jsf:
 
 def write_booking():
    with open('{}/databases/bookings.json'.format("."), "w") as file:
-      json.dump(bookings, file)
+      json.dump({"bookings":bookings}, file, indent=2)
 
 @app.route("/", methods=['GET'])
 def home():
@@ -42,11 +42,24 @@ def add_booking(userid):
                for movie in date["movies"]:
                   if movie == movieid:
                      return make_response({"error":"an existing item already exists"}, 409)
-                  date["movies"].append(movieid)
-                  write_booking()
-                  return make_response(jsonify(bookings),200)
-
-   return make_response({"test":"test"}, 200)
+               date["movies"].append(movieid)
+               write_booking()
+               return make_response(jsonify(booking),200)
+         booking["dates"].append({"date": date_mv,
+                                     "movies": [movieid]
+                                    })
+         write_booking()
+         return make_response(jsonify(booking),200)
+   bookings.append({"userid": userid,
+                    "dates": [
+                    {
+                       "date": date_mv,
+                       "movies": [movieid]
+                    }
+                    ]
+                  })
+   write_booking()
+   return make_response(jsonify(booking), 200)
 
 @app.route("/bookings", methods=["GET"])
 def get_bookings():
