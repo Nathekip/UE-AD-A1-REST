@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 PORT = 3201
 HOST = '0.0.0.0'
+IP = "127.0.0.1"
 
 with open('{}/databases/bookings.json'.format("."), "r") as jsf:
    bookings = json.load(jsf)["bookings"]
@@ -19,14 +20,14 @@ def home():
 def add_booking(userid):
    # récupérer date et film à partir du json
    req = request.get_json()
-   date = ""
-   film_id = ""
+   date = req['date']
+   film_id = req["movieid"]
    # récupérer liste des films programmés à X date en faisant appel à l'API Showtime et vérifier si le film correspond
-   schedule = requests.get(f"{HOST}:{PORT}/showmovies/{date}")
-   # récupérer réservations de l'user puis la modifier
-   reserv_user = {}
+   response = requests.get(f"http://{IP}:{PORT}/showmovies/{date}")
    # envoyer json des réservations de l'user
-   return make_response(jsonify(reserv_user), 200)
+   if response.status_code == 200:
+      return make_response({"test":"test"}, 200)
+   return make_response({"error":"no movie at this date"}, 400)
 
 @app.route("/bookings", methods=["GET"])
 def get_bookings():
