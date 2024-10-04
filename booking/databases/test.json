@@ -1,18 +1,12 @@
-{
-  "bookings": [
+[
     {
       "userid": "chris_rivers",
       "dates": [
         {
           "date": "20151201",
           "movies": [
-            "267eedb8-0f5d-42d5-8f43-72426b9fb3e6"
-          ]
-        },
-        {
-          "date": "20151130",
-          "movies": [
-            "720d006c-3a57-4b6a-b18f-9b713b073f3c"
+            "267eedb8-0f5d-42d5-8f43-72426b9fb3e6",
+            "39ab85e5-5e8e-4dc5-afea-65dc368bd7ab"
           ]
         }
       ]
@@ -52,17 +46,5 @@
           ]
         }
       ]
-    },
-    {
-      "userid": "eloi_garnier",
-      "dates": [
-        {
-          "date": "20151205",
-          "movies": [
-            "39ab85e5-5e8e-4dc5-afea-65dc368bd7ab"
-          ]
-        }
-      ]
     }
   ]
-}
