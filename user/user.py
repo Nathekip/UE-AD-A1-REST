@@ -6,7 +6,9 @@ from werkzeug.exceptions import NotFound
 app = Flask(__name__)
 
 PORT = 3203
+PORT_BOOKING = 3201
 HOST = '0.0.0.0'
+IP = '127.0.0.1'
 
 with open('{}/databases/users.json'.format("."), "r") as jsf:
    users = json.load(jsf)["users"]
@@ -14,6 +16,25 @@ with open('{}/databases/users.json'.format("."), "r") as jsf:
 @app.route("/", methods=['GET'])
 def home():
    return "<h1 style='color:blue'>Welcome to the User service!</h1>"
+
+@app.route("/users",methods=['GET'])
+def get_json():
+    res = make_response(jsonify(users),200)
+    return res
+
+@app.route("/users/bookings/<user>",methods=['GET'])
+def get_bookings_byuser(user):
+   id = -1
+   for useri in users :
+      if useri["name"] == user or useri["id"] == user :
+         id = useri["id"]
+         break
+   if id == -1 :
+      return make_response(jsonify({"error":"user not found"}),400)
+   response = requests.get(f"http://{IP}:{PORT_BOOKING}/bookings/{id}")
+   if response.status_code != 200:
+      return make_response({"error":"no bookings for this user"}, 400)
+   return make_response(response.json())
 
 
 if __name__ == "__main__":
