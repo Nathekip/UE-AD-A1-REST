@@ -54,8 +54,10 @@ def get_movies_byuser(user):
       for movie in movies["movies"] :
          movie_json = requests.get(f"http://{IP}:{PORT_MOVIE}/movies/{movie}")
          print(response.json())
-         movies_json["movies"].append(movies_json)
-   return make_response(jsonify(movies_json))
+         movies_json["movies"].append(movie_json.json())
+   print("test")
+   print(movies_json)
+   return make_response(jsonify(movies_json),200)
 
 if __name__ == "__main__":
    print("Server running in port %s"%(PORT))
