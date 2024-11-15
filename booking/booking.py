@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, make_response
+import os
 import requests
 import json
 from werkzeug.exceptions import NotFound
@@ -10,12 +11,16 @@ PORT_SHOWTIME = 3202
 HOST = '0.0.0.0'
 IP = "127.0.0.1"
 
-with open('{}/databases/bookings.json'.format("."), "r") as jsf:
+base_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(base_dir, 'databases/bookings.json')
+
+with open(json_path, "r") as jsf:
    bookings = json.load(jsf)["bookings"]
 
 def write_booking():
-   with open('{}/databases/bookings.json'.format("."), "w") as file:
-      json.dump({"bookings":bookings}, file, indent=2)
+   with open(json_path, "w") as file:
+      json.dump({"bookings": bookings}, file, indent=2)
+
 
 @app.route("/", methods=['GET'])
 def home():

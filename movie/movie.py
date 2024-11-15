@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, make_response
 import json
 import sys
+import os
 from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
@@ -8,7 +9,10 @@ app = Flask(__name__)
 PORT = 3200
 HOST = '0.0.0.0'
 
-with open('{}/databases/movies.json'.format("."), 'r') as jsf:
+base_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(base_dir, 'databases/movies.json')
+
+with open(json_path, "r") as jsf:
    movies = json.load(jsf)["movies"]
 
 # root message
@@ -19,7 +23,7 @@ def home():
 @app.route("/help", methods=['GET'])
 def get_help():
     endpoints = ["/json","/movies/{movieid}","/movies/{movieid}/{rate}","/addmovie/{movieid}","/movies/{movieid}","/moviesbytitle"]
-    html = f"<h1>Endpoints : </h1><ul>{''.join([f"<li>{path}</li>" for path in endpoints])}</ul>"
+    html = f"<h1>Endpoints : </h1><ul>{''.join([f'<li>{path}</li>' for path in endpoints])}</ul>"
     return make_response(html, 200)
 
 @app.route("/json",methods=['GET'])
@@ -70,8 +74,8 @@ def add_movie(movieid):
     return res
 
 def write(movies):
-    with open('{}/databases/movies.json'.format("."), 'w') as f:
-        json.dump({"movies":movies}, f)
+    with open(json_path, "w") as jsf:
+        json.dump({"movies":movies}, jsf)
 
 @app.route("/movies/<movieid>", methods=['DELETE'])
 def del_movie(movieid):

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, make_response
+import os
 import json
 from werkzeug.exceptions import NotFound
 
@@ -7,7 +8,11 @@ app = Flask(__name__)
 PORT = 3202
 HOST = '0.0.0.0'
 
-with open('{}/databases/times.json'.format("."), "r") as jsf:
+base_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(base_dir, 'databases/times.json')
+
+
+with open(json_path, "r") as jsf:
    schedule = json.load(jsf)
 
 @app.route("/", methods=['GET'])

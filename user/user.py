@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, make_response
 import requests
 import json
+import os
 from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
@@ -11,7 +12,10 @@ PORT_MOVIE = 3200
 HOST = '0.0.0.0'
 IP = '127.0.0.1'
 
-with open('{}/databases/users.json'.format("."), "r") as jsf:
+base_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(base_dir, 'databases/users.json')
+
+with open(json_path, "r") as jsf:
    users = json.load(jsf)["users"]
 
 @app.route("/", methods=['GET'])
@@ -27,7 +31,7 @@ def get_json():
 def add_user():
     new_user = request.get_json()
     users.append(new_user)
-    with open('{}/databases/users.json'.format("."), "w") as jsf:
+    with open(json_path, "w") as jsf:
         json.dump({"users": users}, jsf, indent=2)
     return make_response(jsonify(new_user), 201)
  
@@ -36,7 +40,7 @@ def delete_user(user_id):
     for user in users:
         if user["id"] == user_id:
             users.remove(user)
-            with open('{}/databases/users.json'.format("."), "w") as jsf:
+            with open(json_path, "w") as jsf:
                 json.dump({"users": users}, jsf, indent=2)
             return make_response(jsonify({"message": "user deleted"}), 200)
     return make_response(jsonify({"error": "user not found"}), 404)
