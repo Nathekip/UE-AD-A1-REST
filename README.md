@@ -15,8 +15,8 @@ Ce projet a été réalisé dans le cadre du cours d'architecture distribuée de
 
 1. Clonez le dépôt :
     ```sh
-    git clone <URL_DU_DEPOT>
-    cd <NOM_DU_DEPOT>
+    git clone https://github.com/Nathekip/UE-AD-A1-REST
+    cd UE-AD-A1-REST
     ```
 
 2. Installez les dépendances pour chaque microservice :
