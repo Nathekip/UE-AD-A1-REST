@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "91cda9f2-7760-4a54-a50a-0ea050e67b8d",
+		"name": "Tests UE-AD-A1-REST",
+		"description": "Collection of API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38640208",
+		"_collection_link": "https://ue-ad-a1.postman.co/workspace/bba26e47-658e-4fdc-8471-d659608cada7/collection/38640208-91cda9f2-7760-4a54-a50a-0ea050e67b8d?action=share&source=collection_link&creator=38640208"
+	},
+	"item": [
+		{
+			"name": "Showtime API",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3202/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3202",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Full JSON Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3202/showtimes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3202",
+							"path": [
+								"showtimes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3202/showmovies/20151130",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3202",
+							"path": [
+								"showmovies",
+								"20151130"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User API",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3203/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"name\": \"Eloi\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3203/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Booking for a User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"20151130\",\n  \"movieid\": \"39ab85e5-5e8e-4dc5-afea-65dc368bd7ab\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3203/users/1/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users",
+								"1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3203/users/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Full JSON Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3203/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bookings of the User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3203/users/bookings/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users",
+								"bookings",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies Information from User's Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3203/users/movies/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3203",
+							"path": [
+								"users",
+								"movies",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movie API",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of All Endpoints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/help",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"help"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Full JSON Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movie by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/movies/39ab85e5-5e8e-4dc5-afea-65dc368bd7ab",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"movies",
+								"39ab85e5-5e8e-4dc5-afea-65dc368bd7ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Movie Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Inception\",\n  \"director\": \"Christopher Nolan\",\n  \"year\": 2010,\n  \"id\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3200/movies/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"movies",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Movie Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/movies/39ab85e5-5e8e-4dc5-afea-65dc368bd7ab",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"movies",
+								"39ab85e5-5e8e-4dc5-afea-65dc368bd7ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movie by Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/moviesbytitle?title=Inception",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"moviesbytitle"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Inception"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Movie Rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/movies/39ab85e5-5e8e-4dc5-afea-65dc368bd7ab/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"movies",
+								"39ab85e5-5e8e-4dc5-afea-65dc368bd7ab",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking API",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3201/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3201",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Full JSON Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3201/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3201",
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bookings from User ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3201/bookings/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3201",
+							"path": [
+								"bookings",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Booking for a User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"20231130\",\n  \"movieid\": \"720d006c-3a57-4b6a-b18f-9b713b073f3c\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3201/bookings/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3201",
+							"path": [
+								"bookings",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
