@@ -24,10 +24,16 @@ def write_booking():
 
 @app.route("/", methods=['GET'])
 def home():
+   """ 
+   Page d'accueil
+   """
    return "<h1 style='color:blue'>Welcome to the Booking service!</h1>"
 
 @app.route("/bookings/<userid>", methods=["POST"])
 def add_booking(userid):
+   """
+   Ajouter une réservation
+   """
    # récupérer date et film à partir du json
    req = request.get_json()
    date_mv = req['date']
@@ -40,21 +46,28 @@ def add_booking(userid):
    # film_id présent dans la liste de films ?
    if movieid not in response.json()["movies"]:
       return make_response({"error":"this movie is not programmed for this date"}, 400)
+   # Parcourir les réservations existantes pour l'utilisateur
    for booking in bookings:
       if userid == booking["userid"]:
+         # Vérifier si la date de réservation existe déjà
          for date in booking["dates"]:
             if str(date["date"]) == str(date_mv):
+               # Vérifier si le film est déjà réservé pour cette date
                for movie in date["movies"]:
                   if movie == movieid:
                      return make_response({"error":"an existing item already exists"}, 409)
+               # Ajouter le film à la date existante
                date["movies"].append(movieid)
                write_booking()
                return make_response(jsonify(booking),200)
+         # Ajouter une nouvelle date avec le film
          booking["dates"].append({"date": date_mv,
                                      "movies": [movieid]
                                     })
          write_booking()
          return make_response(jsonify(booking),200)
+   
+   # Ajouter une nouvelle réservation pour l'utilisateur
    bookings.append({"userid": userid,
                     "dates": [
                     {
@@ -68,10 +81,16 @@ def add_booking(userid):
 
 @app.route("/bookings", methods=["GET"])
 def get_bookings():
+   """
+   Récupérer toutes les réservations
+   """
    return make_response(jsonify(bookings), 200)
 
 @app.route("/bookings/<userid>", methods=["GET"])
 def get_bookings_byuser(userid):
+   """
+   Récupérer les réservations d'un utilisateur 
+   """
    for booking in bookings:
       print(booking)
       if str(booking["userid"]) == str(userid):

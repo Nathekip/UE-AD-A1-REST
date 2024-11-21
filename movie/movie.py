@@ -18,21 +18,33 @@ with open(json_path, "r") as jsf:
 # root message
 @app.route("/", methods=['GET'])
 def home():
+    """ 
+    Page d'accueil
+    """
     return make_response("<h1 style='color:blue'>Welcome to the Movie service!</h1>", 200)
 
 @app.route("/help", methods=['GET'])
 def get_help():
+    """
+    Listes des endpoints
+    """
     endpoints = ["/json","/movies/{movieid}","/movies/{movieid}/{rate}","/addmovie/{movieid}","/movies/{movieid}","/moviesbytitle"]
     html = f"<h1>Endpoints : </h1><ul>{''.join([f'<li>{path}</li>' for path in endpoints])}</ul>"
     return make_response(html, 200)
 
 @app.route("/json",methods=['GET'])
 def get_json():
+    """ 
+    Retourne la liste des films
+    """
     res = make_response(jsonify(movies),200)
     return res
 
 @app.route("/movies/<movieid>", methods=['GET'])
 def get_movie_byid(movieid):
+    """ 
+    Retourne un film par son ID
+    """
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             res = make_response(jsonify(movie),200)
@@ -41,6 +53,9 @@ def get_movie_byid(movieid):
 
 @app.route("/moviesbytitle", methods=['GET'])
 def get_movie_bytitle():
+    """
+    Retourne un film par son titre
+    """
     if request.args:
         req = request.args
         title = req["title"][1:-1]
@@ -52,6 +67,9 @@ def get_movie_bytitle():
 
 @app.route("/movies/<movieid>/<rate>", methods=['PUT'])
 def update_movie_rating(movieid, rate):
+    """
+    Mettre à jour la note d'un film
+    """
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             movie["rating"] = rate
@@ -62,6 +80,9 @@ def update_movie_rating(movieid, rate):
 
 @app.route("/movies/<movieid>", methods=['POST'])
 def add_movie(movieid):
+    """
+    Ajouter un film
+    """
     req = request.get_json()
 
     for movie in movies:
@@ -74,11 +95,17 @@ def add_movie(movieid):
     return res
 
 def write(movies):
+    """
+    Ecrit dans le fichier json
+    """
     with open(json_path, "w") as jsf:
         json.dump({"movies":movies}, jsf)
 
 @app.route("/movies/<movieid>", methods=['DELETE'])
 def del_movie(movieid):
+    """
+    Supprimer un film
+    """
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             movies.remove(movie)

@@ -17,15 +17,24 @@ with open(json_path, "r") as jsf:
 
 @app.route("/", methods=['GET'])
 def home():
+   """
+   Page d'accueil
+   """
    return "<h1 style='color:blue'>Welcome to the Showtime service!</h1>"
 
 @app.route("/showtimes",methods=['GET'])
 def get_json():
+    """ 
+    Retourne la liste des horaires
+    """
     res = make_response(jsonify(schedule),200)
     return res
  
 @app.route("/showmovies/<date>",methods=['GET'])
 def get_schedule_bydate(date):
+   """ 
+   Retourne les films programmés à une date donnée
+   """
    for day in schedule["schedule"] :
       if str(day["date"]) == str(date) :
          res = make_response(jsonify(day),200)
